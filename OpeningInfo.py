@@ -1,11 +1,10 @@
 import requests, re, pandas as pd
 from lxml import etree
 
-token = "0123456789abcdef"
+token = "xxxxxxxxxxxxxxxxx"
 xq = "2019-2020-1"
-url = "http://zhjw.cic.tsinghua.edu.cn/xkBks.vxkBksJxjhBs.do"
-# cookies = {"JSESSIONID": "bac05ABkKzw2ThshY-AEw", "JSESSIONIDJXPGNEW": "abc1_r14EY8nl7_fW-AEw",
-#            "thuwebcookie": "1778675466.20480.0000"}
+url = "http://zhjwxk.cic.tsinghua.edu.cn/xkBks.vxkBksJxjhBs.do"
+cookies = {"JSESSIONID": "xxxxxxxxxxxxxxxxx"}
 headers = {"Host": "zhjw.cic.tsinghua.edu.cn",
            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:63.0) Gecko/20100101 Firefox/63.0",
            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -13,7 +12,6 @@ headers = {"Host": "zhjw.cic.tsinghua.edu.cn",
            "Accept-Encoding": "gzip, deflate", "Referer": "http://zhjw.cic.tsinghua.edu.cn/xkBks.vxkBksJxjhBs.do",
            "Content-Type": "application/x-www-form-urlencoded", "Content-Length": "311", "DNT": "1",
            "Connection": "keep-alive",
-           "Cookie": "JSESSIONIDJXPGNEW=xxxxxxxxxxx; JSESSIONID=xxxxxxxxxxx",
            "Upgrade-Insecure-Requests": "1", "Pragma": "no-cache", "Cache-Control": "no-cache"}
 
 
@@ -31,7 +29,7 @@ def get_info(page=1):
     while max_page < 0 or page < max_page:
         try:
             data_dict['page'] = page
-            res = requests.post(url, data=data_dict, headers=headers)
+            res = requests.post(url, data=data_dict, headers=headers, cookies=cookies)
             doc: etree._Element = etree.HTML(res.text)
             rs += [
                 [''.join(td.itertext()).replace("链接加入了课程分类代码用于区分本研", '').replace('\r', '').replace('\n', '').replace(
